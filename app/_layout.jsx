@@ -1,6 +1,6 @@
-import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
 
 const _layout = () => {
 
@@ -16,10 +16,25 @@ const _layout = () => {
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
 
+  useEffect(() => {
+    return () => {
+      if(error) throw new Error;
+
+      if(fontsLoaded && !error)
+      {
+        SplashScreen.hideAsync();
+      }
+    }
+  }, [fontsLoaded,error])
+  
+  if(!fontsLoaded && !error) return null;
+
   return (
-    <View>
-      <Text>_layout</Text>
-    </View>
+    <Stack>
+      <Stack.Screen name="index" options={{headerShown: false}}/>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+    </Stack>
   );
 };
 
