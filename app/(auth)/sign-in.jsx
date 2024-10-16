@@ -106,7 +106,7 @@ const Signin = () => {
           
           {/* Error message */}
           {errorMessage && (
-            <Text className="text-lg text-red-500 font-pmedium mt-3">{errorMessage}</Text>
+            <Text className="text-sm text-center text-secondary font-pmedium mt-3">{errorMessage}</Text>
           )}
           
           <View className="justify-center pt-5 flex-row gap-2">
