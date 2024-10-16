@@ -10,31 +10,31 @@ import { images } from "../../constants";
 import { useState } from "react";
 import { getAllposts, getLatestposts } from ".";
 import useAppwrite from "./useAppWrite";
-import {VideoCard,SearchInput,Trending,EmptyState} from "../../components"
-
-
+import { VideoCard, SearchInput, Trending, EmptyState } from "../../components";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const {data: posts,isLoading,refetch  } = useAppwrite(getAllposts);
-  const {data: latestPosts  } = useAppwrite(getLatestposts);
+  const [playingVideoId, setPlayingVideoId] = useState(null);
+  const { data: posts, isLoading, refetch } = useAppwrite(getAllposts);
+  const { data: latestPosts } = useAppwrite(getLatestposts);
 
- 
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
   };
-  console.log("The Ativity is loaded Again");
-  
-  
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-         <VideoCard video={item}/>
+          <VideoCard
+            video={item}
+            playingVideoId={playingVideoId}
+            setPlayingVideoId={setPlayingVideoId}
+          />
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
