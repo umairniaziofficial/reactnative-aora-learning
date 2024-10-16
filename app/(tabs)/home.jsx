@@ -4,20 +4,20 @@ import {
   FlatList,
   Image,
   RefreshControl,
-  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
-import SearchInput from "../../components/SearchInput";
-import Trending from "../../components/Trending";
-import EmptyState from "../../components/EmptyState";
 import { useState } from "react";
-import { getAllposts } from ".";
+import { getAllposts, getLatestposts } from ".";
 import useAppwrite from "./useAppWrite";
+import {VideoCard,SearchInput,Trending,EmptyState} from "../../components"
+
+
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const {data: posts,isLoading,refetch  } = useAppwrite(getAllposts);
+  const {data: latestPosts  } = useAppwrite(getLatestposts);
 
  
   const onRefresh = async () => {
@@ -27,13 +27,14 @@ const Home = () => {
   };
   console.log("The Ativity is loaded Again");
   
+  
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text className="text-3xl text-white">{item.title}</Text>
+         <VideoCard video={item}/>
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
@@ -60,7 +61,7 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              <Trending posts={[{ id: 1 }, { id: 2 }] ?? []} />
+              <Trending posts={latestPosts} />
             </View>
           </View>
         )}

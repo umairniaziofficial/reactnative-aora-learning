@@ -123,3 +123,17 @@ export const getAllposts = async () => {
     console.error("Error fetching posts:", error);
   }
 }
+
+export const getLatestposts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      appWrite.databaseID,
+      appWrite.videoCollectionID,
+      [Query.orderDesc('$createdAt',Query.limit(7))]
+    );
+    return posts.documents;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+}
+
