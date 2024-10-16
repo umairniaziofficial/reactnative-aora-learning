@@ -9,11 +9,14 @@ const FormField = ({
   handleChangeText,
   otherStyles,
   errorMessage,
+  secureTextEntry,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const borderColor = errorMessage ? "border-red-500" : "border-black-200";
   const focusBorderColor = errorMessage ? "focus:border-red-500" : "focus:border-secondary";
+
+  const isPassword = secureTextEntry;
 
   return (
     <View className={`space-y-2 ${otherStyles}`}>
@@ -27,10 +30,10 @@ const FormField = ({
           placeholder={placeholder}
           placeholderTextColor="#7b7b8b"
           onChangeText={handleChangeText}
-          secureTextEntry={title === "Password" && !showPassword}
+          secureTextEntry={isPassword && !showPassword}
           {...props}
         />
-        {title === "Password" && (
+        {isPassword && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
               source={showPassword ? icons.eyeHide : icons.eye}
