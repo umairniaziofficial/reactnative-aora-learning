@@ -1,6 +1,5 @@
-import { View, Text, TextInput, Image } from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native";
 import { icons } from "../constants";
 
 const FormField = ({
@@ -9,13 +8,19 @@ const FormField = ({
   placeholder,
   handleChangeText,
   otherStyles,
+  errorMessage,
   ...props
 }) => {
-  const [showPassword, setshowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const borderColor = errorMessage ? "border-red-500" : "border-black-200";
+  const focusBorderColor = errorMessage ? "focus:border-red-500" : "focus:border-secondary";
+
   return (
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base text-gray-100 font-pmedium">{title}</Text>
-      <View className="border-2 border-black-200 w-full h-16  px-4 bg-black-100 rounded-2xl focus:border-secondary items-center flex-row">
+      <View
+        className={`border-2 ${borderColor} w-full h-16 px-4 bg-black-100 rounded-2xl ${focusBorderColor} items-center flex-row`}
+      >
         <TextInput
           className="flex-1 text-white font-psemibold text-base"
           value={value}
@@ -23,17 +28,21 @@ const FormField = ({
           placeholderTextColor="#7b7b8b"
           onChangeText={handleChangeText}
           secureTextEntry={title === "Password" && !showPassword}
+          {...props}
         />
         {title === "Password" && (
-          <TouchableOpacity onPress={() => setshowPassword(!showPassword)}>
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
-              source={!showPassword ? icons.eye : icons.eyeHide}
-              className="w-6 h-6"
+              source={showPassword ? icons.eyeHide : icons.eye}
+              style={{ width: 24, height: 24 }}
               resizeMode="contain"
             />
           </TouchableOpacity>
         )}
       </View>
+      {errorMessage && (
+        <Text className="text-sm text-red-500 font-pmedium">{errorMessage}</Text>
+      )}
     </View>
   );
 };

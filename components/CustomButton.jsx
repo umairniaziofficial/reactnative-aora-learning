@@ -1,9 +1,10 @@
-import {  Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 
 const CustomButton = ({
   title,
+  loadingText = "Loading...",
   containerStyle,
   handlePress,
   textStyles,
@@ -17,9 +18,10 @@ const CustomButton = ({
       onPress={handlePress}
       disabled={isLoading}
     >
-      <Text className={`text-primary font-psemibold text-lg ${textStyles}`}>{title}</Text>
+      <Text className={`text-primary font-psemibold text-lg ${textStyles}`}>
+        {isLoading ? loadingText : title}
+      </Text>
     </TouchableOpacity>
-    
   );
 };
 
