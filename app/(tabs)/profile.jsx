@@ -1,15 +1,38 @@
-import { Text } from 'react-native'
-import React from 'react'
-import { StatusBar } from 'react-native-web'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView, StyleSheet } from "react-native";
+import CustomButton from "../../components/CustomButton";
+import { logoutUser } from ".";
+import { useRouter } from "expo-router";
 
 const Profile = () => {
+  const router = useRouter();
+
   return (
-    <SafeAreaView className="flex-1 justify-center items-center ">
-      <Text className="text-2xl">Profile</Text>
+    <SafeAreaView style={styles.container}>
+      <CustomButton
+        title="Logout"
+        containerStyle={"w-1/2"}
+        handlePress={async () => {
+          try {
+            await logoutUser();
+            router.replace("/sign-in");
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      />
       <StatusBar style="auto" />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Profile
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+export default Profile;

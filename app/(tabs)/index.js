@@ -110,3 +110,16 @@ export const logoutUser = async () => {
     throw error;
   }
 };
+
+
+export const getAllposts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      appWrite.databaseID,
+      appWrite.videoCollectionID
+    );
+    return posts.documents;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+}

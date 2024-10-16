@@ -101,7 +101,7 @@ const Signin = () => {
           
           {/* Success message */}
           {successMessage && (
-            <Text className="text-lg text-green-500 font-pmedium mt-3">{successMessage}</Text>
+            <Text className="text-lg text-secondary font-pmedium mt-3">{successMessage}</Text>
           )}
           
           {/* Error message */}
