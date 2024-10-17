@@ -1,0 +1,77 @@
+[
+    {
+        "$collectionId": "670bdafd001b4b027a09",
+        "$createdAt": "2024-10-16T12:49:13.651+00:00",
+        "$databaseId": "670bda90003d8354cece",
+        "$id": "670fb649000b22db476d",
+        "$permissions": [],
+        "$updatedAt": "2024-10-16T12:49:13.651+00:00",
+        "prompt": "Create a motivating AI driven video aimed at inspiring coding enthusiasts with simple language",
+        "thumbnail": "https://i.ibb.co/tJBcX20/Appwrite-video.png",
+        "title": "Get inspired to code",
+        "users": {
+            "$collectionId": "670bdac7002171fd0ca6",
+            "$createdAt": "2024-10-16T12:43:04.194+00:00",
+            "$databaseId": "670bda90003d8354cece",
+            "$id": "670fb4d3002130edbfa4",
+            "$permissions": [Array
+            ],
+            "$updatedAt": "2024-10-16T12:43:04.194+00:00",
+            "accountId": "670fb4d2001d6a7c5514",
+            "avatar": "https://cloud.appwrite.io/v1/avatars/initials?name=Nizzy&project=670bcf8c0030ed2b4476",
+            "email": "nizzy@gmail.com",
+            "username": "Nizzy"
+        },
+        "video": "https://player.vimeo.com/video/949579770?h=897cd5e781"
+    },
+    {
+        "$collectionId": "670bdafd001b4b027a09",
+        "$createdAt": "2024-10-16T12:50:19.797+00:00",
+        "$databaseId": "670bda90003d8354cece",
+        "$id": "670fb68b00152143cec2",
+        "$permissions": [],
+        "$updatedAt": "2024-10-16T12:50:19.797+00:00",
+        "prompt": "Picture the future of coding with AI. Show AR VR",
+        "thumbnail": "https://i.ibb.co/Xkgk7DY/Video.png",
+        "title": "How AI Shapes Coding Future",
+        "users": {
+            "$collectionId": "670bdac7002171fd0ca6",
+            "$createdAt": "2024-10-16T12:43:04.194+00:00",
+            "$databaseId": "670bda90003d8354cece",
+            "$id": "670fb4d3002130edbfa4",
+            "$permissions": [Array
+            ],
+            "$updatedAt": "2024-10-16T12:43:04.194+00:00",
+            "accountId": "670fb4d2001d6a7c5514",
+            "avatar": "https://cloud.appwrite.io/v1/avatars/initials?name=Nizzy&project=670bcf8c0030ed2b4476",
+            "email": "nizzy@gmail.com",
+            "username": "Nizzy"
+        },
+        "video": "https://player.vimeo.com/video/949581999?h=4672125b31"
+    },
+    {
+        "$collectionId": "670bdafd001b4b027a09",
+        "$createdAt": "2024-10-16T12:50:56.098+00:00",
+        "$databaseId": "670bda90003d8354cece",
+        "$id": "670fb6af00281fb8bdaf",
+        "$permissions": [],
+        "$updatedAt": "2024-10-16T12:50:56.098+00:00",
+        "prompt": "Create a heartwarming video following the travels of dalmatian dog exploring beautiful Italy",
+        "thumbnail": "https://i.ibb.co/CBYzyKh/Video-1.png",
+        "title": "Dalmatian's journey through Italy",
+        "users": {
+            "$collectionId": "670bdac7002171fd0ca6",
+            "$createdAt": "2024-10-16T12:43:04.194+00:00",
+            "$databaseId": "670bda90003d8354cece",
+            "$id": "670fb4d3002130edbfa4",
+            "$permissions": [Array
+            ],
+            "$updatedAt": "2024-10-16T12:43:04.194+00:00",
+            "accountId": "670fb4d2001d6a7c5514",
+            "avatar": "https://cloud.appwrite.io/v1/avatars/initials?name=Nizzy&project=670bcf8c0030ed2b4476",
+            "email": "nizzy@gmail.com",
+            "username": "Nizzy"
+        },
+        "video": "https://player.vimeo.com/video/949582778?h=d60220d68d"
+    }
+]

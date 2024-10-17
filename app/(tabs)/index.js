@@ -101,7 +101,7 @@ export const getUser = async () => {
   }
 };
 
-export const logoutUser = async () => {
+export const signOut = async () => {
   try {
     await account.deleteSession("current");
     console.log("User logged out");
@@ -151,3 +151,18 @@ export const getSearchPosts = async (query) => {
     throw new Error(error);
   }
 };
+
+
+export async function getUserPosts(userId) {
+  try {
+    const posts = await databases.listDocuments(
+      appWrite.databaseID,
+      appWrite.videoCollectionID,
+      [Query.equal("users", userId)]
+    );
+    return posts.documents;
+  } catch (error) {
+    console.error("Error fetching user posts:", error);
+    throw error;
+  }
+}

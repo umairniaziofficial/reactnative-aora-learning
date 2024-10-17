@@ -9,6 +9,7 @@ import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as yup from 'yup';
 import { loginUser } from "../(tabs)"; 
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const signInSchema = yup.object().shape({
   email: yup.string().email("Invalid email format").required("Email is required"),
@@ -16,14 +17,13 @@ const signInSchema = yup.object().shape({
 });
 
 const Signin = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); 
 
   const validate = async () => {
@@ -45,17 +45,16 @@ const Signin = () => {
 
     try {
       setIsSubmitting(true);
-      setSuccessMessage(""); 
       setErrorMessage(""); 
-      await loginUser(form.email, form.password);
-      setSuccessMessage("Login Successful! Redirecting...");
+      const user = await loginUser(form.email, form.password);
+      
+      setUser(user);
+      setIsLogged(true);
 
-      setTimeout(() => {
-        router.replace("/home");
-      }, 2000); 
+      router.replace("/home");
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.message); 
+      setErrorMessage(error.message || "Login failed. Please try again."); 
     } finally {
       setIsSubmitting(false);
     }
@@ -98,11 +97,6 @@ const Signin = () => {
             containerStyle={"mt-7"}
             isLoading={isSubmitting}
           />
-          
-          {/* Success message */}
-          {successMessage && (
-            <Text className="text-lg text-secondary font-pmedium mt-3">{successMessage}</Text>
-          )}
           
           {/* Error message */}
           {errorMessage && (

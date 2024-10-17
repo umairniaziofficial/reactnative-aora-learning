@@ -1,18 +1,17 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  RefreshControl,
-} from "react-native";
+import { View, Text, FlatList, Image, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import { useState } from "react";
 import { getAllposts, getLatestposts } from ".";
 import { VideoCard, SearchInput, Trending, EmptyState } from "../../components";
 import useAppwrite from "../../lib/useAppWrite";
+import { StatusBar } from "expo-status-bar";
+import { useGlobalContext } from "../../context/GlobalProvider";
+
 
 const Home = () => {
+  const {user,setUser,setIsLoggedIn} = useGlobalContext();
+
   const [refreshing, setRefreshing] = useState(false);
   const [playingVideoId, setPlayingVideoId] = useState(null);
   const { data: posts, isLoading, refetch } = useAppwrite(getAllposts);
@@ -26,6 +25,7 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-primary h-full">
+      <StatusBar style="light" />
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
@@ -44,7 +44,7 @@ const Home = () => {
                   Welcome Back
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  Umair Khan
+                  {user?.username}
                 </Text>
               </View>
               <View>

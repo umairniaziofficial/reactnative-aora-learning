@@ -9,6 +9,7 @@ import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { createUser } from "../(tabs)";
 import * as yup from "yup";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const signUpSchema = yup.object().shape({
   username: yup
@@ -26,15 +27,15 @@ const signUpSchema = yup.object().shape({
 });
 
 const SignUp = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validate = async () => {
     try {
@@ -55,16 +56,16 @@ const SignUp = () => {
 
     try {
       setIsSubmitting(true);
-      setSuccessMessage("");
-      await createUser(form.email, form.password, form.username);
-      setSuccessMessage("Sign Up Successful! Redirecting...");
+      const newUser = await createUser(form.email, form.password, form.username);
 
-      setTimeout(() => {
-        router.replace("/home");
-      }, 2000);
+      setUser(newUser);
+      setIsLogged(true);
+
+      router.replace("/home");
     } catch (error) {
       console.error(error);
-      Alert.alert("Sign Up Error", error.message);
+      Alert.alert("Sign Up Error", error.message || "Sign Up failed. Please try again.");
+      setErrorMessage(error.message || "Sign Up failed. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -110,17 +111,19 @@ const SignUp = () => {
             errorMessage={errors.password}
           />
           <CustomButton
-            title={"Sign Up"}
-            loadingText={"Signing Up..."}
+            title={isSubmitting ? "Signing Up..." : "Sign Up"}
             handlePress={submit}
             containerStyle={"mt-7"}
             isLoading={isSubmitting}
           />
-          {successMessage && (
+          
+          {/* Error message */}
+          {errorMessage && (
             <Text className="text-sm text-secondary font-pmedium mt-3 text-center">
-              {successMessage}
+              {errorMessage}
             </Text>
           )}
+
           <View className="justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
               Already have an account?{" "}
