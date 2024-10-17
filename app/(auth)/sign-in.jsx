@@ -7,13 +7,19 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import * as yup from 'yup';
-import { loginUser } from "../(tabs)"; 
+import * as yup from "yup";
+import { loginUser, getUser } from "../(tabs)";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const signInSchema = yup.object().shape({
-  email: yup.string().email("Invalid email format").required("Email is required"),
-  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 
 const Signin = () => {
@@ -24,7 +30,7 @@ const Signin = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validate = async () => {
     try {
@@ -45,16 +51,20 @@ const Signin = () => {
 
     try {
       setIsSubmitting(true);
-      setErrorMessage(""); 
-      const user = await loginUser(form.email, form.password);
-      
-      setUser(user);
+      setErrorMessage("");
+
+      const response = await loginUser(form.email, form.password);
+
+      const userDetails = await getUser();
+
+      setUser(userDetails);
       setIsLogged(true);
 
       router.replace("/home");
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.message || "Login failed. Please try again."); 
+
+      setErrorMessage(error.message || "Login failed. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -73,7 +83,7 @@ const Signin = () => {
           <Text className="text-2xl font-semibold mt-10 font-psemibold text-white">
             Log in to Aora
           </Text>
-          
+
           <FormField
             title="Email"
             value={form.email}
@@ -97,17 +107,23 @@ const Signin = () => {
             containerStyle={"mt-7"}
             isLoading={isSubmitting}
           />
-          
-          {/* Error message */}
+
           {errorMessage && (
-            <Text className="text-sm text-center text-secondary font-pmedium mt-3">{errorMessage}</Text>
+            <Text className="text-sm text-center text-secondary font-pmedium mt-3">
+              {errorMessage}
+            </Text>
           )}
-          
+
           <View className="justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?{" "} 
+              Don't have an account?{" "}
             </Text>
-            <Link href={"/sign-up"} className="text-lg font-psemibold text-secondary">Signup</Link>
+            <Link
+              href={"/sign-up"}
+              className="text-lg font-psemibold text-secondary"
+            >
+              Signup
+            </Link>
           </View>
         </View>
       </ScrollView>

@@ -7,7 +7,7 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { createUser } from "../(tabs)";
+import { createUser, getUser } from "../(tabs)";
 import * as yup from "yup";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -56,15 +56,24 @@ const SignUp = () => {
 
     try {
       setIsSubmitting(true);
-      const newUser = await createUser(form.email, form.password, form.username);
+      const newUser = await createUser(
+        form.email,
+        form.password,
+        form.username
+      );
 
-      setUser(newUser);
+      const userDetails = await getUser();
+
+      setUser(userDetails);
       setIsLogged(true);
 
       router.replace("/home");
     } catch (error) {
       console.error(error);
-      Alert.alert("Sign Up Error", error.message || "Sign Up failed. Please try again.");
+      Alert.alert(
+        "Sign Up Error",
+        error.message || "Sign Up failed. Please try again."
+      );
       setErrorMessage(error.message || "Sign Up failed. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -116,7 +125,7 @@ const SignUp = () => {
             containerStyle={"mt-7"}
             isLoading={isSubmitting}
           />
-          
+
           {/* Error message */}
           {errorMessage && (
             <Text className="text-sm text-secondary font-pmedium mt-3 text-center">

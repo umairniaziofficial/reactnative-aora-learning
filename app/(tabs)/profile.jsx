@@ -6,13 +6,12 @@ import { icons } from "../../constants";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { EmptyState, InfoBox, VideoCard } from "../../components";
 import useAppwrite from "../../lib/useAppWrite";
-import { getAllposts, getUserPosts, signOut } from ".";
+import { getUserPosts, signOut } from ".";
 import { useState } from "react";
 
 const Profile = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const {data: allPosts}= useAppwrite(() => getAllposts());
-  
+
   const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
   const [playingVideoId, setPlayingVideoId] = useState(null);
 
