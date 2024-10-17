@@ -9,8 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import { useState } from "react";
 import { getAllposts, getLatestposts } from ".";
-import useAppwrite from "./useAppWrite";
 import { VideoCard, SearchInput, Trending, EmptyState } from "../../components";
+import useAppwrite from "../../lib/useAppWrite";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);

@@ -11,7 +11,6 @@ const VideoCard = ({ video, playingVideoId, setPlayingVideoId }) => {
   const [play, setPlay] = useState(false);
 
   useEffect(() => {
-    // Stop video playback when another video starts playing
     if (playingVideoId !== video?.$id) {
       setPlay(false);
     }
@@ -19,9 +18,9 @@ const VideoCard = ({ video, playingVideoId, setPlayingVideoId }) => {
 
   const handlePlayPress = () => {
     if (playingVideoId && playingVideoId !== video.$id) {
-      setPlayingVideoId(null); // Reset the previous video state
+      setPlayingVideoId(null); 
     }
-    setPlayingVideoId(video.$id); // Set the current video as the playing one
+    setPlayingVideoId(video.$id);
     setPlay(true);
   };
 
